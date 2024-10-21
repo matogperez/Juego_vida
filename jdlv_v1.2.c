@@ -126,18 +126,43 @@ int main (void){
 			//Condición esquina superior izquierda, suma i-1 con borde izquierdo y j-1 con borde inferior
 			else if((i==0)&&(j==0)){
 			
-				mconteo[i][j] = (matriz[N-1][N-1] + matriz[N-1][j] + matriz[N-1][j+1] + matriz[i][N-1] + matriz[i][j+1] + matriz[i+1][N-1] + matriz[i+1][j] + matriz[i+1][j+1]);
+				for(l=0;l<2;l++){
+					for(k=0;k<2;k++){
+					
+						mconteo[i][j]+=matriz[i+k][j+l];
+					
+					}
+				
+				mconteo[i][j] += matriz[N-1][j+l];
+				mconteo[i][j] += matriz[i+l][N-1];
+				
+				}
+				
+				mconteo[i][j] += matriz[N-1][N-1];
+				mconteo -= matriz[i][j];
 			}
 			
 			//Condición esquina superior derecha, suma i+1 con borde izquierdo y j-1 con borde inferior
 			else if((i==N-1)&&(j==0)){
 			
+				for(l=0;l<2;l++){
+					for(k=0;k<2;k++){
+						
+						mconteo[i][j] += matriz[i-1+k][j+l];
+					}
+				mconteo[i][j] += matriz[0][j+l];
+				mconteo[i][j] += matriz[i-1+l][N-1]
+				}
+				
+				
 				mconteo[i][j] = (matriz[i-1][N-1] + matriz[i-1][j] + matriz[i-1][j-1] + matriz[i][N-1] + matriz[i][j+1] + matriz[0][N-1] + matriz[0][j] + matriz[0][j+1]);
 			}
 			
 			//Condición esquina inferior izquierda, suma i-1 con borde derecho y j+1 con borde superior
 			else if((i==0)&&(j==N-1)){
 			
+				for(l=0;l<2;l++)
+				
 				mconteo[i][j] = (matriz[N-1][j-1] + matriz[N-1][j] + matriz[N-1][0] + matriz[i][j-1] + matriz[i][0] + matriz[i+1][j-1] + matriz[i+1][j] + matriz[i+1][0]);
 			}
 			
@@ -161,3 +186,5 @@ int main (void){
 		}
 	
 	}
+return 0;
+}
