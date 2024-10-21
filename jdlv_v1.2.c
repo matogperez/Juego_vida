@@ -4,7 +4,7 @@
 #include<stdlib.h> //librería standard en donde están la función rand 
 #include<time.h> //Libreria para poder llamar la función de tiempo
 
-int i,j,conteo,x; //creamos 4 espacios en la memoria para enteros
+int i,j,x,k,l; //creamos 5 espacios en la memoria para enteros
 
 const int N = 100;  //creamos un espacio para un entero constante que será la base de la matriz
 
@@ -56,26 +56,71 @@ int main (void){
 			//Condición para borde izquierdo, suma las i-1 con los bordes derechos
 			if((i==0)&&(j!=N-1)&&(j!=0)){
 				
-				mconteo[i][j] = (matriz[N-1][j] + matriz[N-1][j+1] + matriz[N-1][j-1] + matriz[i][j+1] + matriz[i][j-1] + matriz[i+1][j+1] + matriz[i+1][j] + matriz[i+1][j-1]);
-			
+				for(l=0;l<3;l++){
+					for (k=0;k<2;k++){
+						
+						mconteo[i][j] += matriz[i+k][j-1+l];
+					}
+				
+				mconteo[i][j] += matriz[N-1][j-1+l];
+				
+				}
+				
+			mconteo[i][j]-=matriz[i][j];
 			}
+			
+			
 			
 			//Condición borde derecho, suma las i+1 con el borde izquierdo
 			else if((i==(N-1))&&(j!=N-1)&&(j!=0)){
+				for(l=0;l<3;l++){
+					for (k=0;k<2;k++){
+						
+						mconteo[i][j] += matriz[i-1+k][j-1+l];
+					}
+				
+				mconteo[i][j] += matriz[0][j-1+l];
+				
+				}
 			
-				mconteo[i][j] = (matriz[i-1][j] + matriz[i-1][j+1] + matriz[i-1][j-1] + matriz[i][j-1] + matriz[i][j+1] + matriz[0][j-1] + matriz[0][j] + matriz[0][j+1]);
+			mconteo[i][j]-=matriz[i][j];
+			
 			}
 			
 			//Condición borde superior, suma j-1 con borde inferior
 			else if((j==0)&&(i!=N-1)&&(i!=0)){
 			
-				mconteo[i][j] = (matriz[i-1][N-1] + matriz[i-1][j] + matriz[i-1][j+1] + matriz[i][N-1] + matriz[i][j+1] + matriz[i+1][N-1] + matriz[i+1][j] + matriz[i+1][j+1]);
+				for(l=0;l<2;l++){
+					for(k=0;k<3;k++){
+						
+						mconteo[i][j]+=matriz[i-1+k][j+l];
+					}
+				}
+				for(k=0;k<3;k++){
+				
+					mconteo[i][j]+=matriz[i-1+k][N-1];
+				
+				}
+				mconteo[i][j]-=matriz[i][j];
+
 			}
 			
 			//Condición borde inferior, suma j+1 con el borde superior
 			else if((j==(N-1))&&(i!=0)&&(i!=N-1)){
 			
-				mconteo[i][j] = (matriz[i-1][j-1] + matriz[i-1][j] + matriz[i-1][0] + matriz[i][j-1] + matriz[i][0] + matriz[i+1][j-1] + matriz[i+1][j] + matriz[i+1][0]);
+				for(l=0;l<2;l++){
+					for(k=0;k<3;k++){
+						
+						mconteo[i][j]+=matriz[i-1+k][j-1+l];
+					}
+				}
+				for(k=0;k<3;k++){
+				
+					mconteo[i][j]+=matriz[i-1+k][0];
+				
+				}
+				mconteo[i][j]-=matriz[i][j];
+
 			}
 			
 			//Condición esquina superior izquierda, suma i-1 con borde izquierdo y j-1 con borde inferior
@@ -104,10 +149,10 @@ int main (void){
 			
 			//Condición para el resto de la matriz para sumar valor de vecions
 			else{
-				for(int l=0;l<m;l++){
-					for(int k=0;k<m;k++){
+				for(l=0;l<m;l++){
+					for(k=0;k<m;k++){
 						
-						mconteo[i][j] += (matriz[i-1+k][j-1+l]);
+						mconteo[i][j] += matriz[i-1+k][j-1+l];
 					}
 				}
 				mconteo[i][j] -= matriz[i][j];
@@ -116,19 +161,3 @@ int main (void){
 		}
 	
 	}
-	
-	
-	//Saltos de línea para distinguir matrices
-	printf("\n\n");
-	
-	//fors para imprimir matriz e conteo
-	for(j=0;j<N;j++){
-		for(i=0;i<N;i++){
-		
-			printf("%i ", mconteo[i][j]);
-		}
-		printf("\n");
-	}
-	
-
-}
