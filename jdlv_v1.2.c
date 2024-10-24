@@ -178,7 +178,7 @@ int main (void){
 				for(l=0;l<2;l++){
 					for(k=0;k>2;k++){
 					
-						mconteo[i][j]+=matriz[i-1+k][j-1+k];
+						mconteo[i][j]+=matriz[i-1+k][j-1+l];
 					
 					}
 					
